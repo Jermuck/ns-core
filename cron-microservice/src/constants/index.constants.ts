@@ -1,0 +1,2 @@
+export const PARSER_SERVICE = 'PARSER_SERVICE'
+export const LOGGER_SERVICE = 'LOGGER_SERVICE'
