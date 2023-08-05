@@ -21,7 +21,7 @@ export class ProductController implements OnModuleInit {
   ) { }
 
   public async onModuleInit() {
-    this.loggerService.connect();
+    await this.loggerService.connect();
   }
 
   @MessagePattern('product.create')

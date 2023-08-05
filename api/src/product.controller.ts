@@ -1,7 +1,6 @@
 import {BadRequestException, Controller, Get, Inject, OnModuleInit, Param, Query} from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 import { DATABASE_SERVICE } from "./сonstants/index.сonstants";
-import { map } from "rxjs";
 
 @Controller('/product')
 export class ProductController implements OnModuleInit {

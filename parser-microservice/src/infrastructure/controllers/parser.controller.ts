@@ -19,7 +19,7 @@ export class ParserController implements OnModuleInit {
 
     public async onModuleInit(): Promise<void> {
         await this.loggerService.connect();
-        await this.databaseService.close();
+        await this.databaseService.connect();
     }
 
     @MessagePattern(GatewayPaths.TASK_CREATE)
