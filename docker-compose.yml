@@ -6,5 +6,90 @@ services:
     env_file:
       - .rabbit.env
     ports:
-      - 15671:15672
-      - 5672:5672
+      - "15671:15672"
+      - "5672:5672"
+
+  postgres:
+    image: postgres:15.3
+    container_name: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=PRODUCT
+      - POSTGRES_DB=LOGGER
+
+  api-service:
+    container_name: api-service
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    env_file:
+      - ./api/.env
+    ports:
+      - "7164:7164"
+    restart: always
+    depends_on:
+      - rabbit
+      - database-service
+
+  cron-service:
+    container_name: cron-service
+    build:
+      context: ./cron-microservice
+      dockerfile: Dockerfile
+    env_file:
+      - ./cron-microservice/.env
+    ports:
+      - "1000:1000"
+    restart: always
+    depends_on:
+      - rabbit
+      - logger-service
+      - parser-service
+
+  database-service:
+    container_name: database-service
+    build:
+      context: ./database-microservice
+      dockerfile: Dockerfile
+    env_file:
+      - ./database-microservice/.env
+    ports:
+      - "2000:2000"
+    restart: always
+    depends_on:
+      - rabbit
+      - postgres
+      - logger-service
+
+  logger-service:
+    container_name: logger-service
+    build:
+      context: ./logger-microservice
+      dockerfile: Dockerfile
+    env_file:
+      - ./logger-microservice/.env
+    ports:
+      - "3000:3000"
+    restart: always
+    depends_on:
+      - rabbit
+      - postgres
+
+  parser-service:
+    container_name: parser-service
+    build:
+      context: ./parser-microservice
+      dockerfile: Dockerfile
+    env_file:
+      - ./parser-microservice/.env
+    ports:
+      - "4000:4000"
+    restart: always
+    depends_on:
+      - rabbit
+      - logger-service
+      - database-service

@@ -1,11 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import * as Excel from "exceljs";
 import { IProductModel } from "../../../../domain/models/product.model";
-
 @Injectable()
 export class EWEParserService {
     public async Main() {
-        const filePath = '/Users/kirillbardugov/Desktop/Projects/ns-core/parser-microservice/src/EWE_Выгрузка.xlsx';
+        const filePath = 'src/EWE_Выгрузка.xlsx';
         const workbook = new Excel.Workbook();
         const content = await workbook.xlsx.readFile(filePath);
 

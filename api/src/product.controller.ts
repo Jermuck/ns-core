@@ -15,24 +15,24 @@ export class ProductController implements OnModuleInit {
 
     @Get('/')
     public getProduct() {
-        return this.databaseService.send({cmd: 'product.findMany'}, {});
+        return this.databaseService.send('product.findMany', {});
     }
 
     @Get('/find?')
     public getProductById(@Query('id') id: string){
         if(!id) throw new BadRequestException('Not found param');
-        return this.databaseService.send({cmd: 'product.getById'}, id);
+        return this.databaseService.send('product.getById', id);
     } 
     
     @Get('/find?')
     public getProductByName(@Query('name') name: string){
         if(!name) throw new BadRequestException('Not found param');
-        return this.databaseService.send({cmd: 'product.getByName'}, name);
+        return this.databaseService.send('product.getByName', name);
     }
     
     @Get('/find?')
     public getBySupplier(@Query('supplier') supplier: string){
         if(!supplier) throw new BadRequestException('Not found param');
-        return this.databaseService.send({cmd: 'product.getBySupplier'}, supplier);
+        return this.databaseService.send('product.getBySupplier', supplier);
     }
 }

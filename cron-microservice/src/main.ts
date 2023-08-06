@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { MicroserviceOptions, Transport } from "@nestjs/microservices"
+import { MicroserviceOptions, Transport } from "@nestjs/microservices";
 import { CronModule } from './cron.module';
 import { config } from 'dotenv';
 
